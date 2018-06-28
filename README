@@ -1,0 +1,8 @@
+These scripts will make some but not all of the plots that are going into Pluto-2017.
+They use hybrid_tools, visualize, spice_tools, etc.
+
+Some other plots that go into the paper can be generated with:
+    hybridtools/hvar 
+    swap/grid_profiles
+    swap/plot_especs
+    swap/velocity_profiles
