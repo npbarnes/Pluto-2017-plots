@@ -1,7 +1,13 @@
 import numpy as np
+import argparse
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 rcParams['figure.autolayout'] = True
+
+cmd_line_parser = argparse.ArgumentParser()
+cmd_line_parser.add_argument('--save', nargs='?', default=False, const='atmosphere-profile', 
+        help='Set flag to save instead of displaying. Optionally provide a filename (or filepath).')
+cmd_line_args = cmd_line_parser.parse_args()
 
 @np.vectorize
 def atm(r):
@@ -30,5 +36,7 @@ ax.yaxis.label.set_fontsize(20)
 for l in (ax.get_xticklabels() + ax.get_yticklabels()):
     l.set_fontsize(15)
 
-import os
-plt.savefig(os.path.expanduser('~/Dropbox/Pluto-2017/atmosphere-profile.png'))
+if cmd_line_args.save:
+    plt.savefig(cmd_line_args.save)
+else:
+    plt.show()
