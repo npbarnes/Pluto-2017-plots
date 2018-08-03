@@ -16,7 +16,7 @@ plt.ylabel('$p(\\phi)$')
 fig = plt.gcf()
 fig.savefig(os.path.expanduser('~/Dropbox/Pluto-2017/p_of_phi.png'))
 
-plt.figure(figsize=figaspect(0.5))
+plt.figure(figsize=figaspect(1/2.66))
 theta = np.linspace(-90,90, 1000)
 
 resp = np.empty((phi.shape[0], theta.shape[0]))
@@ -31,7 +31,7 @@ for i,p in enumerate(phi):
 plt.pcolormesh(phi, theta, resp.T, vmin=0, vmax=1, cmap='jet')
 plt.xlim([-140,140])
 plt.ylim([-4.75,4.25])
-plt.title('Synthetic SWAP Transmission\n1keV protons')
+#plt.title('Synthetic SWAP Transmission\n1keV protons')
 plt.xlabel('$\\phi$')
 plt.ylabel('$\\theta$')
 cb = plt.colorbar(shrink=0.6, aspect=10, fraction=0.1, pad=0.02)
