@@ -1,4 +1,4 @@
-These scripts will make some but not all of the plots that are going into Pluto-2017.
+These scripts will make some but not all of the plots that are going into my Pluto 2017 paper.
 They use hybrid_tools, visualize, spice_tools, etc.
 
 Some other plots that go into the paper can be generated with:
