@@ -8,6 +8,8 @@ from matplotlib import colors, rcParams
 from os.path import expanduser
 import argparse
 
+plt.style.use('pluto-paper')
+
 def var_sanity_check(isScalar, coord):
     if h.isScalar and args.variable.coordinate is not None:
         raise ValueError("Don't specify a coordinate for scalars.")

@@ -2,7 +2,8 @@ import numpy as np
 import argparse
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
-rcParams['figure.autolayout'] = True
+
+plt.style.use('pluto-paper')
 
 cmd_line_parser = argparse.ArgumentParser()
 cmd_line_parser.add_argument('--save', nargs='?', default=False, const='atmosphere-profile', 
@@ -25,7 +26,7 @@ r = np.linspace(0, 35, 10000)
 plt.plot(atm(r),r)
 plt.title('Neutral Density Profile')
 plt.ylabel('Radius ($R_p$)')
-plt.xlabel('Neutral Density ($km^{-3}$)')
+plt.xlabel('Neutral Density ($\mathrm{km}^{-3}$)')
 plt.xscale('log')
 
 ax = plt.gca()
@@ -37,6 +38,6 @@ for l in (ax.get_xticklabels() + ax.get_yticklabels()):
     l.set_fontsize(15)
 
 if cmd_line_args.save:
-    plt.savefig(cmd_line_args.save)
+    plt.savefig(cmd_line_args.save, bbox_inches='tight')
 else:
     plt.show()

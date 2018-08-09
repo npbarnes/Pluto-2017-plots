@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.ticker import MultipleLocator
+from matplotlib.ticker import MultipleLocator, LogLocator, NullFormatter
 import grid_profiles as gp
 from FortranFile import NoMoreRecords
 import argparse
@@ -20,7 +20,7 @@ args = parser.parse_args()
 plt.style.use('pluto-paper')
 
 profilers = [gp.vnorm_profiler, gp.light_profiler, gp.heavy_profiler]
-fig, axs = gp.figure_setup(len(profilers), 1/3.75, scale=3)
+fig, axs = gp.figure_setup(len(profilers), 1/3.75, scale=1)
 u, nh, nch4 = axs
 
 for ax, profiler in zip(axs, profilers):
@@ -39,17 +39,25 @@ nh.yaxis.set_label_position('right')
 nch4.yaxis.set_label_position('right')
 
 u.set_ylabel('Normalized\nVelocity')
-nh.set_ylabel(r'$n_{H^+}$')
-nch4.set_ylabel(r'$n_{CH_4^+}$')
+nh.set_ylabel(r'$n_{\mathrm{H}^+}$')
+nch4.set_ylabel(r'$n_{\mathrm{CH}_4^+}$')
 
 u.get_yaxis().set_major_locator(MultipleLocator(0.1))
 nh.set_yscale('log')
 nch4.set_yscale('log')
 
-u.set_ylim(0,1.09)
+
+u.set_ylim(-0.09,1.09)
 nh.set_ylim(0.000105,.2)
 nch4.set_ylim(0.0001,1)
 nch4.set_xlim(-30,80)
+
+# Need a stupid workaround to make nch4 show minor ticks >:(
+majloc = LogLocator(base=10.0, numticks=6)
+nch4.yaxis.set_major_locator(majloc)
+minloc = LogLocator(base=10.0, subs=(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9), numticks=6)
+nch4.yaxis.set_minor_locator(minloc)
+nch4.yaxis.set_minor_formatter(NullFormatter())
 
 if args.sims == shell:
     u.set_title('Simulation Flyby Profiles\nWith IPUIs')
