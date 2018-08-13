@@ -6,6 +6,7 @@ import argparse
 from HybridReader2 import HybridReader2 as hr
 from HybridReader2 import NoSuchVariable
 from HybridHelper import beta_plot2, traj_plot
+from scipy.constants import value, unit
 
 def insert_beta_plot(fig, ax, prefix, cax):
     hn = hr(prefix, 'np')
@@ -27,7 +28,9 @@ def insert_beta_plot(fig, ax, prefix, cax):
     B2 = np.sum(B**2, axis=-1)
 
     # Compute plasma beta
-    data = n*T/(B2/(2*1.257e-6))
+    mu_0 = value('mag. constant')
+    assert unit('mag. constant') == 'N A^-2'
+    data = n*T/(B2/(2*mu_0))
 
     m, x, y, s = beta_plot2(ax, data, para, 'xy', mccomas=True)
 
