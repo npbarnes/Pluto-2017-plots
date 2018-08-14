@@ -3,7 +3,7 @@ EXTERNAL_DIR  := external_plots
 LINKS_DIR     := plots
 
 GENERATED_PLOT_NAMES := atmosphere_profile.png xz_context.png shellfeyerabend6.png noshellfeyerabend6.png drape.png synthetic_spectrograms.png \
-	wake_structure.png beta_pressure_shell.png beta_pressure_noshell.png
+	wake_structure.png beta_pressure_shell.png beta_pressure_noshell.png synthetic_rehearsal.png
 GENERATED_PLOT_PATHS := $(addprefix $(GENERATED_DIR)/,$(GENERATED_PLOT_NAMES))
 EXTERNAL_PLOT_NAMES  := mccomasfig7.png heather_scem_espec_no_footer.png mccomasfig6.png
 EXTERNAL_PLOT_PATHS  := $(addprefix $(EXTERNAL_DIR)/,$(EXTERNAL_PLOT_NAMES))
@@ -69,6 +69,9 @@ $(GENERATED_DIR)/beta_pressure_shell.png: plot_beta_pressure.py
 
 $(GENERATED_DIR)/beta_pressure_noshell.png: plot_beta_pressure.py
 	python $< --no-shell --save $@
+
+$(GENERATED_DIR)/synthetic_rehearsal.png: sw_distribution.py
+	python $< --save $@
 
 clean:
 	rm -rf $(LINKS_DIR)
