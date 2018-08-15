@@ -24,7 +24,10 @@ def xlim2tlim(left,right):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--save', nargs='?', const='synthetic_spectrograms.png')
-savename = parser.parse_args().save
+parser.add_argument('--view-colors', action='store_true')
+args = parser.parse_args()
+savename = args.save
+view_colors = args.view_colors
 
 def N_colorbars(fig, N, h_fraction=0.2, v_fraction=2./3., ax_pad=0.01, bar_pad=0.0, label_pad=0.1):
     """Adjust subplots, make axes for N colorbars, and return the axes objects.
@@ -101,18 +104,20 @@ for ax in axs:
     ax.xaxis.set_minor_locator(MultipleLocator(10))
     ax.tick_params(which='both', bottom=True, left=True, right=True)
     ax.set_xlim([-20,105])
-    time_axs.append(ax.twiny())
-    time_axs[-1].set_xlim(xlim2tlim(*ax.get_xlim()))
-    time_axs[-1].xaxis.set_major_locator(HourLocator())
-    time_axs[-1].xaxis.set_major_formatter(DateFormatter('%H:%M'))
-    time_axs[-1].xaxis.set_minor_locator(MinuteLocator(byminute=range(0,60,10)))
-    plt.setp(time_axs[-1].get_xticklabels(), visible=False)
+    if not view_colors:
+        time_axs.append(ax.twiny())
+        time_axs[-1].set_xlim(xlim2tlim(*ax.get_xlim()))
+        time_axs[-1].xaxis.set_major_locator(HourLocator())
+        time_axs[-1].xaxis.set_major_formatter(DateFormatter('%H:%M'))
+        time_axs[-1].xaxis.set_minor_locator(MinuteLocator(byminute=range(0,60,10)))
+        plt.setp(time_axs[-1].get_xticklabels(), visible=False)
 
 high_ax.set_title('Synthetic SWAP Spectrograms, with IPUI', pad=35)
 low_ax.set_xlabel('X ($R_p$)')
 medium_ax.set_ylabel('Energy/Q (eV/q)')
-time_axs[0].set_xlabel('Time (UTC)')
-plt.setp(time_axs[0].get_xticklabels(), visible=True)
+if not view_colors:
+    time_axs[0].set_xlabel('Time (UTC)')
+    plt.setp(time_axs[0].get_xticklabels(), visible=True)
 
 for ax,imf in zip(axs,(0.3,0.19,0.08)):
     ax.text(0.017,0.1, 'IMF:{}nT'.format(imf),
