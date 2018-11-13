@@ -24,13 +24,13 @@ cmd_line_args = cmd_line_parser.parse_args()
 args = hybrid_parse(['-p', expanduser('~/data/2017-Mon-Nov-13/pluto-7/data'),
                      '-v', 'np_CH4',
                      '--norm', 'log',
-                     '--vmin', '1e13',
-                     '--vmax', '1e16',
+                     '--vmin', '1e-2',
+                     '--vmax', '1e1',
                      '--xlim', '-70', '110',
                      '--ylim', '-100', '200', 
                      '--mccomas', 
                      '--title', 'Heavy Ion Number Density\nIMF:0.3nT, With IPUIs',
-                     '--units', '$\mathrm{km}^{-3}$',
+                     '--units', '$\mathrm{cm}^{-3}$',
                      '--titlesize', '15', 
                      '--labelsize', '13',
                      '--ticklabelsize', '12',
@@ -48,6 +48,8 @@ var_sanity_check(h.isScalar, args.variable.coordinate)
 data = h.get_timestep(args.stepnum)[-1]
 if not h.isScalar:
     data = data[:,:,:,args.variable.coordinate]
+# Change units from km^-3 to cm^-3
+data = data*1e-15
 para = h.para
 
 direct_plot(fig1, ax1, data, para, 'xz', cmap=args.colormap,
