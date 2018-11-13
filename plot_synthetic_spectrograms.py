@@ -10,11 +10,7 @@ from espec import N_colorbars, color_coded_espec_pcolormesh
 import itertools
 import spice_tools
 
-mpl.rcParams['text.latex.preamble']=[r'\usepackage[version=4]{mhchem}']
-mpl.rc('text', usetex=True)
-mpl.rc('axes', titlesize=15, labelsize=12)
-mpl.rc('xtick', labelsize=12)
-mpl.rc('ytick', labelsize=12)
+plt.style.use('pluto-paper')
 
 def xlim2tlim(left,right):
     left_t  = spice_tools.et2pydatetime(spice_tools.time_at_pos(1187*left, mccomas=True))
@@ -61,17 +57,14 @@ fig, (high_ax, medium_ax, low_ax) = plt.subplots(nrows=3, sharex=True, figsize=(
 axs = (high_ax, medium_ax, low_ax)
 
 cbars = N_colorbars(fig, 3, h_fraction=0.22, v_fraction=1./2., ax_pad=0.015, bar_pad=0.015, label_pad=0.06)
-fig.text(np.average(cbars[0].get_position().intervalx), cbars[0].get_position().ymin-0.04, r'$\mathrm{H}^+$',
+fig.text(np.average(cbars[0].get_position().intervalx), cbars[0].get_position().ymax+0.005, r'$\mathrm{H}^+$',
         va='bottom', ha='center', fontsize=10)
-fig.text(cbars[1].get_position().xmin, cbars[1].get_position().ymin-0.04, r'$\mathrm{He}^{++}$',
+fig.text(cbars[1].get_position().xmin, cbars[1].get_position().ymax+0.005, r'$\mathrm{He}^{++}$',
         va='bottom', ha='left', fontsize=10)
-fig.text(cbars[2].get_position().xmin, cbars[2].get_position().ymin-0.04, r'$\mathrm{CH}_4^+$',
+fig.text(cbars[2].get_position().xmin, cbars[2].get_position().ymax+0.005, r'$\mathrm{CH}_4^+$',
         va='baseline', ha='left', fontsize=10)
 
-#cbars[0].set_xlabel('$\ce{H^+}$', fontdict={'fontsize':10})
-#cbars[1].set_xlabel('$\ce{He^{++}}$', fontdict={'fontsize':10})
-#cbars[2].set_xlabel('$\ce{CH_4^+}$', fontdict={'fontsize':10})
-cbars[1].set_title('SCEM (Hz)', fontdict={'fontsize':12})
+cbars[1].set_title('SCEM (Hz)', fontdict={'fontsize':12}, pad=17)
 for cbar in cbars:
     cbar.tick_params(labelsize=10)
 
@@ -121,14 +114,9 @@ if not view_colors:
 
 for ax,imf in zip(axs,(0.3,0.19,0.08)):
     ax.text(0.017,0.1, 'IMF:{}nT'.format(imf),
-            #bbox=dict(boxstyle='round', fc='w', ec='0.05', alpha=0.9),
             bbox=dict(fc='w', ec='0.05'),
             transform=ax.transAxes,
             fontsize=12)
-
-#fig.text(0.95,0.95, 'With IPUI',
-#        verticalalignment='top', horizontalalignment='right',
-#        fontsize=12)
 
 if savename:
     plt.savefig(savename)

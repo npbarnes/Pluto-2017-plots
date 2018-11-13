@@ -22,11 +22,14 @@ def atm(r):
     elif r < 1.1:
         return atm(1.1)
 
+def cm3_atm(r):
+    return atm(r)/1e15
+
 r = np.linspace(0, 35, 10000)
-plt.plot(atm(r),r)
+plt.plot(cm3_atm(r),r)
 plt.title('Neutral Density Profile')
 plt.ylabel('Radius ($R_p$)')
-plt.xlabel('Neutral Density ($\mathrm{km}^{-3}$)')
+plt.xlabel('Neutral Density ($\mathrm{cm}^{-3}$)')
 plt.xscale('log')
 
 ax = plt.gca()

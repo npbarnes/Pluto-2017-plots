@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator, LogLocator, NullFormatter
+from matplotlib.figure import figaspect
 import grid_profiles as gp
 from FortranFile import NoMoreRecords
 import argparse
@@ -20,13 +21,14 @@ args = parser.parse_args()
 plt.style.use('pluto-paper')
 
 profilers = [gp.vnorm_profiler, gp.light_profiler, gp.heavy_profiler]
-fig, axs = gp.figure_setup(len(profilers), 1/3.75, scale=1)
+
+plt.style.use('pluto-paper')
+fig, axs = plt.subplots(nrows=3, sharex=True, gridspec_kw={'left':0.1, 'right':0.87, 'hspace':0}, figsize=(7,5))
 u, nh, nch4 = axs
 
 for ax, profiler in zip(axs, profilers):
     for h, line_label in args.sims:
         pro = profiler(h, step=-1)
-
         gp.plot_profile(ax, pro, labels=[line_label], mccomas=True)
 
 u.plot([-12.7,3.8,8.8,13.1,18.9,158.7,175.2],np.array([400.,365.,324.,250.,140.,320.,400.])/401.0, marker='o', linestyle='None', label='Data')
@@ -38,9 +40,9 @@ u.yaxis.set_label_position('right')
 nh.yaxis.set_label_position('right')
 nch4.yaxis.set_label_position('right')
 
-u.set_ylabel('Normalized\nVelocity')
-nh.set_ylabel(r'$n_{\mathrm{H}^+}$')
-nch4.set_ylabel(r'$n_{\mathrm{CH}_4^+}$')
+u.set_ylabel('Normalized\nVelocity\n$u/u_{sw}$', rotation=0, labelpad=30, va='center')
+nh.set_ylabel('$n_{\mathrm{H}^+}$\n$(\mathrm{cm}^{-3})$', rotation=0, labelpad=30, va='center')
+nch4.set_ylabel('$n_{\mathrm{CH}_4^+}$\n$(\mathrm{cm}^{-3})$', rotation=0, labelpad=30, va='center')
 
 u.get_yaxis().set_major_locator(MultipleLocator(0.1))
 nh.set_yscale('log')
@@ -65,6 +67,6 @@ elif args.sims == noshell:
     u.set_title('Simulation Flyby Profiles\nWithout IPUIs')
 
 if args.save:
-    plt.savefig(args.save, bbox_inches='tight')
+    plt.savefig(args.save)
 else:
     plt.show()

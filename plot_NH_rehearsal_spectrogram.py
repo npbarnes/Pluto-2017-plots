@@ -1,4 +1,3 @@
-import os
 from matplotlib import rcParams
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
