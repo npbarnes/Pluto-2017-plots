@@ -29,7 +29,8 @@ args = hybrid_parse(['-p', expanduser('~/data/2017-Mon-Nov-13/pluto-7/data'),
                      '--xlim', '-70', '110',
                      '--ylim', '-100', '200', 
                      '--mccomas', 
-                     '--title', 'Heavy Ion Number Density\nIMF:0.3nT, With IPUIs',
+                     # JGR wants titles separate from figures (Put title in LaTeX).
+                     #'--title', 'Heavy Ion Number Density\nIMF:0.3 nT, With IPUIs',
                      '--units', '$\mathrm{cm}^{-3}$',
                      '--titlesize', '15', 
                      '--labelsize', '13',
@@ -67,7 +68,8 @@ if args.ylim is not None:
 if args.xlim is not None:
     ax1.set_xlim(*args.xlim)
 
-ax1.set_title(args.title,  fontsize=args.titlesize)
+# JGR wants titles separate from figures (Put title in LaTeX).
+#ax1.set_title(args.title,  fontsize=args.titlesize)
 
 ax1.annotate('',
         xy=(14,172), xycoords='data',

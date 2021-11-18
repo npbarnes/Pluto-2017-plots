@@ -73,10 +73,11 @@ high_pres_ax.legend(loc='lower center', bbox_to_anchor=(0.5,0.99))
 
 colorbar_ax.tick_params(axis='x', bottom=False, top=True, labelbottom=False, labeltop=True, pad=-1.5)
 
-if args.prefixes == gp.shell_prefixes:
-    fig.suptitle('With IPUI', fontsize=15, x=np.average((high_beta_bbox.xmax,high_pres_bbox.xmin)), y=0.99)
-elif args.prefixes == gp.no_shell_prefixes:
-    fig.suptitle('Without IPUI', fontsize=15, x=np.average((high_beta_bbox.xmax,high_pres_bbox.xmin)), y=0.99)
+# JGR Wants titles separate from the figure (put them in the LaTeX file as text).
+#if args.prefixes == gp.shell_prefixes:
+#    fig.suptitle('With IPUI', fontsize=15, x=np.average((high_beta_bbox.xmax,high_pres_bbox.xmin)), y=0.99)
+#elif args.prefixes == gp.no_shell_prefixes:
+#    fig.suptitle('Without IPUI', fontsize=15, x=np.average((high_beta_bbox.xmax,high_pres_bbox.xmin)), y=0.99)
 
 high_beta_ax.set_title('Plasma Beta', pad=40)
 high_pres_ax.set_title('Pressure Profiles', pad=40)
@@ -86,7 +87,7 @@ low_pres_ax.set_xlabel('$X$ ($R_p$)')
 low_beta_ax.xaxis.set_major_locator(MultipleLocator(base=20))
 low_pres_ax.xaxis.set_major_locator(MultipleLocator(base=20))
 
-for left_ax, imf in zip(axs[:,0], ('0.3nT', '0.19nT', '0.08nT')):
+for left_ax, imf in zip(axs[:,0], ('0.3 nT', '0.19 nT', '0.08 nT')):
     left_ax.set_ylabel('Transverse ($R_p$)')
     row_center = np.average(left_ax.get_position().intervaly)
     fig.text(0,row_center, 'IMF\n{}'.format(imf),

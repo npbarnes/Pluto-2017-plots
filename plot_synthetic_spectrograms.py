@@ -105,7 +105,8 @@ for ax in axs:
         time_axs[-1].xaxis.set_minor_locator(MinuteLocator(byminute=range(0,60,10)))
         plt.setp(time_axs[-1].get_xticklabels(), visible=False)
 
-high_ax.set_title('Synthetic SWAP Spectrograms, with IPUI', pad=35)
+# JGR wants titles separate from figures (put titles in LaTeX).
+#high_ax.set_title('Synthetic SWAP Spectrograms, with IPUI', pad=35)
 low_ax.set_xlabel('X ($R_p$)')
 medium_ax.set_ylabel('Energy/Q (eV/q)')
 if not view_colors:
@@ -113,7 +114,7 @@ if not view_colors:
     plt.setp(time_axs[0].get_xticklabels(), visible=True)
 
 for ax,imf in zip(axs,(0.3,0.19,0.08)):
-    ax.text(0.017,0.1, 'IMF:{}nT'.format(imf),
+    ax.text(0.017,0.1, 'IMF:{} nT'.format(imf),
             bbox=dict(fc='w', ec='0.05'),
             transform=ax.transAxes,
             fontsize=12)

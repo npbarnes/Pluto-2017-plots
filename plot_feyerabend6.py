@@ -62,9 +62,9 @@ nch4.yaxis.set_minor_locator(minloc)
 nch4.yaxis.set_minor_formatter(NullFormatter())
 
 if args.sims == shell:
-    u.set_title('Simulation Flyby Profiles\nWith IPUIs')
+    u.set_title('With IPUIs', pad=3, fontsize=12)
 elif args.sims == noshell:
-    u.set_title('Simulation Flyby Profiles\nWithout IPUIs')
+    u.set_title('Without IPUIs', pad=3, fontsize=12)
 
 if args.save:
     plt.savefig(args.save)

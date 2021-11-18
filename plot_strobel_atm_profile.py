@@ -27,18 +27,21 @@ def cm3_atm(r):
 
 r = np.linspace(0, 35, 10000)
 plt.plot(cm3_atm(r),r)
-plt.title('Neutral Density Profile')
+# JGR wants title separate from figures (put titles in LaTeX).
+#plt.title('Neutral Density Profile')
 plt.ylabel('Radius ($R_p$)')
 plt.xlabel('Neutral Density ($\mathrm{cm}^{-3}$)')
 plt.xscale('log')
 
 ax = plt.gca()
 
-ax.title.set_fontsize(25)
+#ax.title.set_fontsize(25)
 ax.xaxis.label.set_fontsize(20)
 ax.yaxis.label.set_fontsize(20)
 for l in (ax.get_xticklabels() + ax.get_yticklabels()):
     l.set_fontsize(15)
+
+ax.annotate(r"$n = \left[10^{15}\left(\frac{R_p}{r}\right)^{25} + 5\times 10^{9} \left(\frac{R_p}{r}\right)^{8}\right] \enspace \mathrm{cm}^{-3}$", (1e3,20))
 
 if cmd_line_args.save:
     plt.savefig(cmd_line_args.save, bbox_inches='tight')

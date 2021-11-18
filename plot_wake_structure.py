@@ -12,14 +12,15 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--save', nargs='?', const='wake_structure.png')
 savename = parser.parse_args().save
 
-w = 7.6
-fig, axs = plt.subplots(nrows=3, ncols=2, sharex=True, sharey=True, figsize=(w, 7), 
-        gridspec_kw={'left':0.15125*8/w, 'right':0.6735*8/w, 'top':0.9, 'bottom':0.11, 'hspace':0.085, 'wspace':0.08})
+w = 6.5
+fig, axs = plt.subplots(nrows=3, ncols=2, sharex=True, sharey=True, figsize=(w, 9), 
+        gridspec_kw={'left':0.15125*8/w, 'right':0.8*8/w, 'top':0.95, 'bottom':0.15, 'hspace':0.085, 'wspace':0.03})
 
 [[high_with_ax, high_without_ax],[medium_with_ax,medium_without_ax],[low_with_ax,low_without_ax]] = axs
 paths = np.array([gp.shell_prefixes,gp.no_shell_prefixes]).transpose()
 
-fig.suptitle('Wake Structure', x=np.average((high_with_ax.get_position().xmax,high_without_ax.get_position().xmin)))
+# JGR wants titles separate from figres (put tiles in LaTeX).
+#fig.suptitle('Wake Structure', x=np.average((high_with_ax.get_position().xmax,high_without_ax.get_position().xmin)))
 
 high_with_ax.set_title('With IPUI')
 high_without_ax.set_title('Without IPUI')
@@ -28,7 +29,7 @@ low_with_ax.set_xlabel('$X$ ($R_p$)')
 low_without_ax.set_xlabel('$X$ ($R_p$)')
 low_with_ax.xaxis.set_major_locator(MultipleLocator(base=20))
 low_without_ax.xaxis.set_major_locator(MultipleLocator(base=20))
-for left_ax, imf in zip(axs[:,0], ('0.3nT', '0.19nT', '0.08nT')):
+for left_ax, imf in zip(axs[:,0], ('0.3 nT', '0.19 nT', '0.08 nT')):
     left_ax.set_ylabel('Transverse ($R_p$)')
     row_center = np.average(left_ax.get_position().intervaly)
     fig.text(0,row_center, 'IMF\n{}'.format(imf),
@@ -63,8 +64,10 @@ for ax_row, path_row in zip(axs, paths):
 high_with_ax.set_xlim([-20,60])
 high_with_ax.set_ylim([-40,40])
 
-high_without_ax.legend(legend_proxies, [r'20\% solar wind slowing', r'70\% solar wind exclusion', r'Heavy ions $> 5 \times 10^{-3} \mathrm{cm^{-3}}$'],
-    loc='upper left', bbox_to_anchor=(1,1))
+#high_without_ax.legend(legend_proxies, [r'20\% solar wind slowing', r'70\% solar wind exclusion', r'Heavy ions $> 5 \times 10^{-3} \mathrm{cm^{-3}}$'],
+#    loc='upper left', bbox_to_anchor=(1,1))
+plt.figlegend(legend_proxies, [r'20\% solar wind slowing', r'70\% solar wind exclusion', r'Heavy ions $> 5 \times 10^{-3} \mathrm{cm^{-3}}$'],
+        loc='lower center')
 if savename:
     plt.savefig(savename)
 else:

@@ -15,7 +15,7 @@ savename = cmd_line_args.save
 
 #para, x, v, mrat, beta, tags = particle_data('/home/nathan/data/2018-Mon-Apr-30/pluto-1/data', [0,1])
 #para, x, v, mrat, beta, tags = particle_data('/home/nathan/data/2018-Mon-Aug-13/pluto-13/data', range(-7,8))
-para, x, v, mrat, beta, tags = particle_data('/home/nathan/data/2018-Wed-Aug-15/pluto-4/data', [-1,0,1])
+para, x, v, mrat, beta, tags = particle_data('/home/nathan/data/pre-2019/2018-Wed-Aug-15/pluto-4/data', [-1,0,1])
 
 volume = para['qx'].max() * para['qy'].max() * para['qzrange'].max()
 Ni_tot = 5599998
@@ -34,6 +34,7 @@ spectra = single_spectrum_by_tag(v, mrat, beta, tags, cmat, volume=reduced_volum
 
 # Remove dummy particles
 spectra_arr = np.array([v for k,v in spectra.items() if k != 0])
+
 
 fig, ax = plt.subplots()
 
